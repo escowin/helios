@@ -36,10 +36,12 @@ class API {
         return fetch(url)
           .then((res) => res.json().then((data) => this.getCME(data)))
           .catch(() => []);
+          
       case "FLR":
         return fetch(url)
           .then((res) => res.json().then((data) => this.getFLR(data)))
           .catch(() => []);
+
       default:
         return Promise.reject("failed fetch request");
     }

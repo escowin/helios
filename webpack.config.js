@@ -15,11 +15,11 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        // preprocesses css stylesheets
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
+      // {
+      //   // preprocesses css stylesheets
+      //   test: /\.css$/i,
+      //   use: ["style-loader", "css-loader"],
+      // },
       {
         // pre-processes image files using regex to search for `.jpg` extension
         test: /\.jpg$/i,
@@ -43,7 +43,7 @@ module.exports = {
     }),
     new BundleAnalyzerPlugin({
       // "static" generates `report.html`. "disable" stops report generation
-      analyzerMode: "static",
+      analyzerMode: "disable",
     }),
     new WebpackPwaManifest({
       // `manifest.json` object key-values

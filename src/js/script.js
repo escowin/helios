@@ -1,4 +1,4 @@
-import "../css/styles.css";
+// import "../css/styles.css";
 const { year } = require("./utils/time");
 const Display = require("./lib/Display")
 const display = new Display();

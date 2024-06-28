@@ -5,7 +5,7 @@ class Memory extends API {
     super();
     this.dbName = "sun_tracker_db";
     this.storeNames = ["cme", "flr"];
-    this.openDatabase();
+    // this.openDatabase();
   }
 
   async openDatabase() {

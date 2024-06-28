@@ -9,12 +9,13 @@
       name="description"
       content="PWA that tracks Sun activity with math & fetched NASA API data"
     />
-    <link rel="manifest" href="./dist/manifest.json" />
+    <!-- <link rel="manifest" href="./dist/manifest.json" /> -->
+    <link rel="stylesheet" type="text/css" href="./src/css/styles.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
     </style>
     <script defer src="./dist/app.bundle.js"></script>
-    <script defer>
+    <!-- <script defer>
       (function () {
         if ("serviceWorker" in navigator) {
           navigator.serviceWorker
@@ -25,13 +26,16 @@
             );
         }
       })();
-    </script>
+    </script> -->
     <title>Sun tracker</title>
   </head>
-  <body class="flex">
+  <body>
     <header class="bg label flex">
-      <h1>Sun tracker</h1>
-      <fieldset class="flex" id="units">
+      <h1 class="subheader">Sun &#8857;</h1>
+
+      <section id="sun" aria-label="Stylized sun element"></section>
+
+      <fieldset class="flex label" id="units">
         <legend>units</legend>
         <label for="kelvin">
           K
@@ -55,46 +59,59 @@
       </fieldset>
     </header>
 
-    <main class="bg flex">
-      <section class="bg grid" id="sun-section">
-        <article id="sun">
-          <h2 class="subheader">Sun &#8857;</h2>
-          <div id="sun-graphic"></div>
-        </article>
+    <aside class="bg" id="sun-section">
+      <section class="label" id="current-date"></section>
 
-        <article class="label" id="current-date"></article>
+      <section class="grid" id="sun-text">
+        <p id="spectral">
+          <span class="label">spectral</span>
+          <span id="spectral"></span>
 
-        <article class="grid" id="sun-temp">
-          <h3 class="label" id="temp-now" data-type="temp"></h3>
-          <p class="label">H</p>
-          <p id="temp-high" data-type="temp"></p>
-          <p class="label">L</p>
-          <p id="temp-low" data-type="temp"></p>
-        </article>
+          <span class="label"></span>
+          <span id="luminosity"></span>
 
-        <article class="grid" id="sun-text">
-          <p class="label">spectral</p>
-          <p id="spectral"></p>
-          <p class="label">luminosity</p>
-          <p id="luminosity"></p>
-          <p class="label">metallicity</p>
-          <p id="metallicity"></p>
-          <p class="label">distance</p>
-          <p>
-            <span id="distance" data-type="dist"></span><br />
-            <span id="lm"></span>
-          </p>
-        </article>
+          <span class="label"></span>
+          <span></span>
 
-        <article id="forecast">
-          <h3 class="label">Forecast</h3>
-          <ul class="list grid" id="forecast-container"></ul>
-        </article>
+          <span class="label"></span>
+          <span id="metallicity"></span>
+
+          <span class="label"></span>
+          <span id="distance"></span>
+        </p>
+
+        <p class="label"></p>
+        <p id="spectral"></p>
+        <p class="label">luminosity</p>
+        <p id="luminosity"></p>
+        <p class="label">metallicity</p>
+        <p id="metallicity"></p>
+        <p class="label">distance</p>
+        <p>
+          <span id="distance" data-type="dist"></span><br />
+          <span id="lm"></span>
+        </p>
       </section>
 
-      <section class="bg flex" id="api-section">
-        <article>
+      <section id="forecast">
+        <h3 class="label">Forecast</h3>
+        <ul class="list grid" id="forecast-container"></ul>
+      </section>
+
+      <section class="grid" id="sun-temp">
+        <h3 class="label" id="temp-now" data-type="temp"></h3>
+        <p class="label">H</p>
+        <p id="temp-high" data-type="temp"></p>
+        <p class="label">L</p>
+        <p id="temp-low" data-type="temp"></p>
+      </section>
+
+    </aside>
+
+    <main class="bg">
+      <section class="flex" id="api-section">
           <h2 class="subheader">Coronal mass ejections</h2>
+        <article>
           <ul class="list flex" id="cme-list"></ul>
         </article>
         <article>
@@ -104,13 +121,14 @@
       </section>
     </main>
 
-    <footer class="bg label flex">
+    <footer class="bg">
+
       <a
         href="https://github.com/escowin/sun-tracker/"
         target="_blank"
         class="link"
       >
-        &copy; <span id="copyright-year"></span> Edwin m. escobar</a
+        sun-tracker &copy; <span id="copyright-year"></span> Edwin m. escobar</a
       >
     </footer>
   </body>

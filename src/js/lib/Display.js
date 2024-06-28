@@ -11,6 +11,9 @@ const Memory = require("./Memory");
 const Sun = require("./Sun");
 const sun = new Sun();
 
+// mock data
+const { mockCME, mockFLR } = require("../mock/data");
+
 // display class handles dom manipulation through jquery methods
 class Display extends Memory {
   constructor() {
@@ -55,8 +58,8 @@ class Display extends Memory {
         $("#temp-now").text(convertUnit(sun.temp.current, unit, temp));
         $("#temp-high").text(convertUnit(sun.temp.high, unit, temp));
         $("#temp-low").text(convertUnit(sun.temp.low, unit, temp));
-        // uses the unique data-forecast value of each forecast element 
-        $(".forecast").each(function() {
+        // uses the unique data-forecast value of each forecast element
+        $(".forecast").each(function () {
           const forecastValue = $(this).data("forecast");
           $(this).text(convertUnit(forecastValue, unit, temp));
         });
@@ -80,14 +83,16 @@ class Display extends Memory {
     setInterval(() => {
       const time = formatUTC(new Date());
       const dist = sun.calcDistance(time);
-      $("#lm").text(`${sun.calcLightMinutes(dist).toLocaleString("en-US")} light minutes`);
+      $("#lm").text(
+        `${sun.calcLightMinutes(dist).toLocaleString("en-US")} light minutes`
+      );
 
       if ($("#celsius").is(":checked")) {
-        $("#distance").text(convertUnit(dist, "metric", "dist"))
+        $("#distance").text(convertUnit(dist, "metric", "dist"));
       } else if ($("#fahrenheit").is(":checked")) {
-        $("#distance").text(convertUnit(dist, "imperial", "dist"))
+        $("#distance").text(convertUnit(dist, "imperial", "dist"));
       } else {
-        $("#distance").text(convertUnit(dist, "si", "dist"))
+        $("#distance").text(convertUnit(dist, "si", "dist"));
       }
     }, 2000);
   }
@@ -100,11 +105,15 @@ class Display extends Memory {
 
   async displayCME() {
     // empty fetch array triggers idb store retrieval, ensuring offline display
-    let array;
-    await (async () => {
-      const arr = await this.CME;
-      arr.length === 0 ? (array = await this.getStore("cme")) : (array = arr);
-    })();
+
+    // production data
+    // let array;
+    // await (async () => {
+    //   const arr = await this.CME;
+    //   arr.length === 0 ? (array = await this.getStore("cme")) : (array = arr);
+    // })();
+
+    const array = mockCME;
 
     array.forEach((cme) => {
       $("#cme-list").append(`<li class="item cme grid">
@@ -133,15 +142,21 @@ class Display extends Memory {
   }
 
   async displayFLR() {
-    let array;
-    await (async () => {
-      const arr = await this.FLR;
-      arr.length === 0 ? (array = await this.getStore("flr")) : (array = arr);
-    })();
+    // production data
+    // let array;
+    // await (async () => {
+    //   const arr = await this.FLR;
+    //   arr.length === 0 ? (array = await this.getStore("flr")) : (array = arr);
+    // })();
+
+    // mock data
+    const array = mockFLR;
 
     array.forEach((flr) => {
       $("#flr-list").append(`<li class="item grid flr">
-        <h3 class="label">${formatDay(flr.beginTime)} - ${formatHr(flr.endTime)}</h3>
+        <h3 class="label">${formatDay(flr.beginTime)} - ${formatHr(
+        flr.endTime
+      )}</h3>
         <p class="label">peak</p>
         <p>${formatHr(flr.peakTime)}</p>
   

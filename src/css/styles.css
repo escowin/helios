@@ -13,6 +13,7 @@
     padding: 0;
     font-variant: small-caps;
     font-family: 'Roboto', sans-serif;
+    outline: 1px dotted cyan;
 }
 
 ::-webkit-scrollbar {
@@ -67,41 +68,55 @@ body {
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    flex-direction: column;
-    align-items: center;
     height: 100vh;
-    width: 100%;
-}
+    width: 100vw;
+    backdrop-filter: blur(.25rem);
+    display: grid;
+    grid-template-columns: 40vw auto;
+    grid-template-rows: auto 1fr min-content;
 
-footer {
-    flex-grow: 1;
-    width: inherit;
-    justify-content: center;
-}
+    & header {
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        padding: 0.25rem;
+        & h1 {
+            order: 2;
+          }
+          
+        & #sun {
+            order: 1;
+          }
 
-header {
-    align-items: baseline;
-    justify-content: space-between;
-    padding: 0.25rem 2rem;
-    width: inherit;
+        & #units {
+            order: 3;
+        }
+    }
+
+    & #sun-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0 .25rem;
+        padding: .5rem .25rem;
+        /* align-items: start; */
+        /* width: inherit; */
+    }
+
+
+    & main {
+        flex-direction: column;
+        width: inherit;
+    }
+    
+    & main,
+    footer {
+        grid-column: 1 / -1;
+    }
 }
 
 h3,
 .cme-note {
     grid-column: span 2;
-}
-
-main {
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1rem;
-    width: inherit;
-}
-
-section {
-    border-radius: .5rem;
-    box-shadow: 0 0 1rem var(--yellow);
-    backdrop-filter: blur(.5rem)
 }
 
 .day {
@@ -143,7 +158,6 @@ section {
 
 #current-date {
     grid-area: c;
-    align-self: flex-end;
 }
 
 #forecast {
@@ -159,9 +173,6 @@ section {
 #sun {
     grid-area: a;
     text-align: center;
-}
-
-#sun-graphic {
     --size: 30vw;
     background-color: rgba(255, 214, 29, 0.75);
     border-radius: 50%;
@@ -170,17 +181,6 @@ section {
     width: var(--size);
     margin: .25rem .75rem;
     animation: glowing 4s infinite alternate;
-}
-
-#sun-section {
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-        "a c"
-        "a d"
-        "b e";
-    gap: 0 .25rem;
-    padding: .5rem .25rem;
-    align-items: start;
 }
 
 #sun-temp {
@@ -194,18 +194,20 @@ section {
     grid-area: d;
     grid-template-columns: auto 1fr;
     gap: .25rem .5rem;
-    align-self: end;
 }
 
 #units {
     border: none;
     gap: .5rem;
+    flex: 1;
+
+    & legend {
+        /* float: left; */
+        font-size: 80%;
+    }
 }
 
-#units legend {
-    float: left;
-    font-size: 80%;
-}
+
 
 /* ANIMATION */
 @keyframes glowing {
@@ -217,6 +219,12 @@ section {
 
 /* DISPLAY */
 @media screen and (min-width: 768px) {
+    section {
+        box-shadow: 0 0 1rem var(--yellow);
+        background-color: inherit;
+        border-radius: .5rem;
+    }
+
     #sun-graphic {
         --size: 15vw;
         margin: .25rem 1.5rem;
@@ -229,6 +237,12 @@ section {
     #api-section .list {
         flex-direction: column;
         height: 55vh;
+    }
+
+    #units {
+        & legend {
+            float: left;
+        }
     }
 }
 
